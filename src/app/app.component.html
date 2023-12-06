@@ -1,0 +1,123 @@
+<form
+  id="user-form"
+  role="form"
+  (ngSubmit)="createUser()"
+  [formGroup]="registerForm"
+>
+  <!-- Username -->
+  <div>
+    <label class="form-label" for="username">Username</label>
+    <input
+      id="username"
+      type="text"
+      name="username"
+      placeholder="Please enter username"
+      formControlName="username"
+    />
+    <div
+      *ngIf="
+        registerForm.get('username')!.invalid &&
+        (registerForm.get('username')!.dirty ||
+          registerForm.get('username')!.touched)
+      "
+    >
+      <small *ngIf="registerForm.get('username')?.errors?.required"
+        >The username is required</small
+      >
+      <small *ngIf="registerForm.get('username')?.errors?.minlength"
+        >The username is required to be at least 3 character.</small
+      >
+      <small *ngIf="registerForm.get('username')?.errors?.maxlength"
+        >The username can not longer than 24 character.</small
+      >
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label class="form-label" for="email">Email</label>
+    <input
+      id="email"
+      type="text"
+      name="email"
+      placeholder="Please enter email"
+      formControlName="email"
+    />
+    <div
+      *ngIf="
+        registerForm.get('email')!.invalid &&
+        (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)
+      "
+    >
+      <small *ngIf="registerForm.get('email')?.errors?.required"
+        >The email is required</small
+      >
+      <small *ngIf="registerForm.get('email')?.errors?.email"
+        >The email is invalid.</small
+      >
+    </div>
+  </div>
+
+  <!-- Type -->
+  <div>
+    <label class="form-label" for="type">Type</label>
+    <select id="type" name="type" formControlName="type">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+    <div
+      *ngIf="
+        registerForm.get('type')!.invalid &&
+        (registerForm.get('type')!.dirty || registerForm.get('type')!.touched)
+      "
+    >
+      <small *ngIf="registerForm.get('type')?.errors?.required"
+        >The type is required</small
+      >
+      <small *ngIf="registerForm.get('type')?.errors?.pattern"
+        >The type is invalid.</small
+      >
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div>
+    <label class="form-label" for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      name="password"
+      placeholder="Please enter password"
+      formControlName="password"
+    />
+    <div
+      *ngIf="
+        registerForm.get('password')!.invalid &&
+        (registerForm.get('password')!.dirty ||
+          registerForm.get('password')!.touched)
+      "
+    >
+      <small *ngIf="registerForm.get('password')?.errors?.required"
+        >The password is required</small
+      >
+      <small *ngIf="registerForm.get('password')?.errors?.minlength"
+        >The password is required to be at least 5 character.</small
+      >
+      <small *ngIf="registerForm.get('password')?.errors?.maxlength"
+        >The password can not longer than 24 character.</small
+      >
+      <small *ngIf="registerForm.get('password')?.errors?.pattern"
+        >The password is required to be contain upper and lower case, at least
+        one special character.</small
+      >
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    form="user-form"
+    [disabled]="registerForm.invalid || isSubmitting"
+  >
+    Submit
+  </button>
+</form>
